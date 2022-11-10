@@ -33,7 +33,6 @@ class RandomAgent(Agent):
             next_move = trash[-1]
             self.model.grid.move_agent(self, next_move)
             trash.pop(-1)
-            self.model.grid_remove_agent(self)
         else:
             possible_steps = self.model.grid.get_neighborhood(
                 self.pos,
