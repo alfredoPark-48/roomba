@@ -24,14 +24,14 @@ class RandomAgent(Agent):
         """ 
         Determines if the agent can move in the direction that was chosen
         """
-        trash = [trash_agent.pos for trash_agent in self.model.grid.get_neighbors(
+        trash = [trash_agent for trash_agent in self.model.grid.get_neighbors(
             self.pos, moore=True
         ) if isinstance(trash_agent, TrashAgent)]
         print(trash)
         if len(trash) > 0:
-            next_move = trash[-1]
+            next_move = trash[-1].pos
             self.model.grid.move_agent(self, next_move)
-            trash.pop(-1)
+            self.model.grid.remove_agent(trash[-1])
         else:
             possible_steps = self.model.grid.get_neighborhood(
                 self.pos,
