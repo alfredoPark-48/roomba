@@ -53,22 +53,22 @@ class RandomAgent(Agent):
             allVisited = all(cell in self.visited for cell in next_moves)
 
             # Now move:
-            if self.random.random() < 0.1:
+
                 # escapes if roomba is traped
-                if allVisited:
-                    next_move = self.random.choice(next_moves)
-                    self.model.grid.move_agent(self, next_move)
-                    self.steps_taken += 1
+            if allVisited:
+                next_move = self.random.choice(next_moves)
+                self.model.grid.move_agent(self, next_move)
+                self.steps_taken += 1
                 # if there is none cell visited it moves wherever
-                if empty:
-                    self.model.grid.move_agent(self, next_move)
-                    self.steps_taken+=1
-                    self.visited.append(next_move)
+            if empty:
+                self.model.grid.move_agent(self, next_move)
+                self.steps_taken+=1
+                self.visited.append(next_move)
                 # if the selected cell is not visited it moves
-                if nextMove:
-                    self.model.grid.move_agent(self, next_move)
-                    self.steps_taken+=1
-                    self.visited.append(next_move)
+            if nextMove:
+                self.model.grid.move_agent(self, next_move)
+                self.steps_taken+=1
+                self.visited.append(next_move)
 
         # If the cell is empty, moves the agent to that cell; otherwise, it stays at the same position
         # if freeSpaces[self.direction]:
