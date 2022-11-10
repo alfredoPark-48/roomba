@@ -16,6 +16,7 @@ class RandomAgent(Agent):
             unique_id: The agent's ID
             model: Model reference for the agent
         """
+        self.visited = []
         super().__init__(unique_id, model)
         self.direction = 4
         self.steps_taken = 0
@@ -46,10 +47,28 @@ class RandomAgent(Agent):
             next_moves = [p for p, f in zip(
                 possible_steps, freeSpaces) if f == True]
             next_move = self.random.choice(next_moves)
+
+            empty = not self.visited
+            nextMove = next_move not in self.visited
+            allVisited = all(cell in self.visited for cell in next_moves)
+
             # Now move:
-            if self.random.random() < 0.1:
+
+                # escapes if roomba is traped
+            if allVisited:
+                next_move = self.random.choice(next_moves)
                 self.model.grid.move_agent(self, next_move)
                 self.steps_taken += 1
+                # if there is none cell visited it moves wherever
+            if empty:
+                self.model.grid.move_agent(self, next_move)
+                self.steps_taken+=1
+                self.visited.append(next_move)
+                # if the selected cell is not visited it moves
+            if nextMove:
+                self.model.grid.move_agent(self, next_move)
+                self.steps_taken+=1
+                self.visited.append(next_move)
 
         # If the cell is empty, moves the agent to that cell; otherwise, it stays at the same position
         # if freeSpaces[self.direction]:
