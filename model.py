@@ -14,7 +14,9 @@ class RandomModel(Model):
     """
 
     def __init__(self, N, width, height):
-        self.num_agents = 1
+        self.num_agents = N
+        self.height = height
+        self.width = width
         self.grid = MultiGrid(width, height, torus=False)
         self.schedule = RandomActivation(self)
         self.running = True
@@ -44,7 +46,7 @@ class RandomModel(Model):
             pos = pos_gen(self.grid.width, self.grid.height)
             while (not self.grid.is_cell_empty(pos)):
                 pos = pos_gen(self.grid.width, self.grid.height)
-            self.grid.place_agent(a, pos)
+            self.grid.place_agent(a, (1,1))
 
         self.datacollector.collect(self)
 
