@@ -25,13 +25,16 @@ class RandomAgent(Agent):
         """ 
         Determines if the agent can move in the direction that was chosen
         """
+        # Using get_neighbors method we store the neighbors that are trash to clean
         trash = [trash_agent for trash_agent in self.model.grid.get_neighbors(
             self.pos, moore=True
         ) if isinstance(trash_agent, TrashAgent)]
-        print(trash)
+
         if len(trash) > 0:
+            # If we have trash agents in the trash list we move to the trash's position
             next_move = trash[-1].pos
             self.model.grid.move_agent(self, next_move)
+            # We use remove_agent method to remove the trash agent
             self.model.grid.remove_agent(trash[-1])
         else:
             possible_steps = self.model.grid.get_neighborhood(
@@ -54,7 +57,7 @@ class RandomAgent(Agent):
 
             # Now move:
 
-                # escapes if roomba is traped
+            # escapes if roomba is traped
             if allVisited:
                 next_move = self.random.choice(next_moves)
                 self.model.grid.move_agent(self, next_move)
@@ -62,12 +65,12 @@ class RandomAgent(Agent):
                 # if there is none cell visited it moves wherever
             if empty:
                 self.model.grid.move_agent(self, next_move)
-                self.steps_taken+=1
+                self.steps_taken += 1
                 self.visited.append(next_move)
                 # if the selected cell is not visited it moves
             if nextMove:
                 self.model.grid.move_agent(self, next_move)
-                self.steps_taken+=1
+                self.steps_taken += 1
                 self.visited.append(next_move)
 
         # If the cell is empty, moves the agent to that cell; otherwise, it stays at the same position
