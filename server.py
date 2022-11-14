@@ -1,6 +1,7 @@
 from model import RandomModel, ObstacleAgent, TrashAgent
 from mesa.visualization.modules import CanvasGrid, BarChartModule
 from mesa.visualization.ModularVisualization import ModularServer
+from mesa.visualization.UserParam import UserSettableParameter
 
 
 def agent_portrayal(agent):
@@ -26,7 +27,9 @@ def agent_portrayal(agent):
     return portrayal
 
 
-model_params = {"N": 5, "width": 10, "height": 10}
+model_params = {"N": UserSettableParameter("slider", "Roomba number", 1, 1, 5), 
+                "width": 10, 
+                "height": 10}
 
 grid = CanvasGrid(agent_portrayal, 10, 10, 500, 500)
 bar_chart = BarChartModule(
