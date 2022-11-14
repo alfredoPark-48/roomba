@@ -13,10 +13,12 @@ class RandomModel(Model):
         height, width: The size of the grid to model
     """
 
-    def __init__(self, N, width, height):
+    def __init__(self, N, width, height, maxTime):
         self.num_agents = N
         self.height = height
         self.width = width
+        self.Time = 0
+        self.maxTime = maxTime
         self.grid = MultiGrid(width, height, torus=False)
         self.schedule = RandomActivation(self)
         self.running = True
@@ -52,5 +54,11 @@ class RandomModel(Model):
 
     def step(self):
         '''Advance the model by one step.'''
+
+        self.Time += 1
+
         self.schedule.step()
         self.datacollector.collect(self)
+
+        if self.Time >= self.maxTime:
+            self.running = False

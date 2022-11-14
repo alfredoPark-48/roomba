@@ -28,6 +28,7 @@ def agent_portrayal(agent):
 
 
 model_params = {"N": UserSettableParameter("slider", "Roomba number", 1, 1, 5), 
+                "maxTime": UserSettableParameter("slider", "Maximum steps", 1, 1, 100),
                 "width": 10, 
                 "height": 10}
 
