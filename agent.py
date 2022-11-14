@@ -28,7 +28,6 @@ class RandomAgent(Agent):
         trash = [trash_agent for trash_agent in self.model.grid.get_neighbors(
             self.pos, moore=True
         ) if isinstance(trash_agent, TrashAgent)]
-        print(trash)
         if len(trash) > 0:
             next_move = trash[-1].pos
             self.model.grid.move_agent(self, next_move)
