@@ -38,7 +38,7 @@ bar_chart = BarChartModule(
     scope="agent", sorting="ascending", sort_by="Steps")
 
 server = ModularServer(
-    RandomModel, [grid, bar_chart], "Random Agents", model_params)
+    RandomModel, [grid, bar_chart], "Roomba", model_params)
 
 server.port = 8521  # The default
 server.launch()
