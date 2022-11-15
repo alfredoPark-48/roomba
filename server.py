@@ -1,4 +1,4 @@
-from model import RoombaModel, ObstacleAgent, TrashAgent
+from model import RoombaModel, TrashAgent
 from mesa.visualization.modules import CanvasGrid, BarChartModule, PieChartModule
 from mesa.visualization.ModularVisualization import ModularServer
 from mesa.visualization.UserParam import UserSettableParameter
@@ -13,11 +13,6 @@ def agent_portrayal(agent):
                  "Layer": 0,
                  "Color": "green",
                  "r": 0.5}
-
-    if (isinstance(agent, ObstacleAgent)):
-        portrayal["Color"] = "grey"
-        portrayal["Layer"] = 1
-        portrayal["r"] = 0.3
 
     if (isinstance(agent, TrashAgent)):
         portrayal['Color'] = 'brown'
@@ -37,9 +32,11 @@ grid = CanvasGrid(agent_portrayal, 10, 10, 500, 500)
 bar_chart = BarChartModule(
     [{"Label": "Steps", "Color": "#AA0000"}],
     scope="agent", sorting="ascending", sort_by="Steps")
+pie_chart = PieChartModule(
+    [{"Label": "Trash", "Color": "#FFFF00"}, {"Label": "Clean", "Color": "#999999"}])
 
 server = ModularServer(
-    RoombaModel, [grid, bar_chart], "Roomba", model_params)
+    RoombaModel, [grid, bar_chart, pie_chart], "Roomba", model_params)
 
 server.port = 8521  # The default
 server.launch()

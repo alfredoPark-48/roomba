@@ -1,8 +1,8 @@
 from mesa import Model, agent
-from mesa.time import RandomActivation
+from mesa.time import RandomActivationByType
 from mesa.space import MultiGrid
 from mesa.datacollection import DataCollector
-from agent import RandomAgent, ObstacleAgent, TrashAgent
+from agent import RandomAgent, TrashAgent
 
 
 class RoombaModel(Model):
@@ -18,13 +18,19 @@ class RoombaModel(Model):
         self.height = height
         self.width = width
         self.grid = MultiGrid(width, height, torus=False)
-        self.schedule = RandomActivation(self)
+        self.schedule = RandomActivationByType(self)
         self.running = True
         self.Time = 0
         self.max_time = max_time
+        self.grid_size = (height - 2) * (width - 2)
 
         self.datacollector = DataCollector(
-            agent_reporters={"Steps": lambda a: a.steps_taken if isinstance(a, RandomAgent) else 0})
+            agent_reporters={"Steps": lambda a: a.steps_taken if isinstance(
+                a, RandomAgent) else 0},
+            model_reporters={
+                "Trash": lambda a: a.schedule.get_type_count(TrashAgent),
+                "Clean": lambda a: a.schedule.get_type_count(RandomAgent)
+            })
 
         # Adds random trash in the grid
         for (contents, x, y) in self.grid.coord_iter():
