@@ -5,6 +5,7 @@ from mesa.visualization.UserParam import UserSettableParameter
 
 COLORS = {"Moves": "#00359F", "Trash": "#FF0421"}
 
+
 def agent_portrayal(agent):
     if agent is None:
         return
@@ -28,9 +29,9 @@ def agent_portrayal(agent):
     return portrayal
 
 
-model_params = {"N": UserSettableParameter("slider", "Roomba number", 1, 1, 5), 
+model_params = {"N": UserSettableParameter("slider", "Roomba number", 1, 1, 5),
                 "maxTime": UserSettableParameter("slider", "Maximum steps", 1, 1, 100),
-                "width": 10, 
+                "width": 10,
                 "height": 10}
 
 grid = CanvasGrid(agent_portrayal, 10, 10, 500, 500)
@@ -44,7 +45,7 @@ pie_chart = PieChartModule(
 )
 
 server = ModularServer(
-    RandomModel, [grid, bar_chart, pie_chart], "Roomba", model_params)
+    RandomModel, [grid, bar_chart], "Roomba", model_params)
 
 server.port = 8521  # The default
 server.launch()
