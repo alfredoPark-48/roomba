@@ -44,7 +44,7 @@ pie_chart = PieChartModule(
 )
 
 server = ModularServer(
-    RandomModel, [grid, bar_chart], "Roomba", model_params)
+    RandomModel, [grid, bar_chart, pie_chart], "Roomba", model_params)
 
 server.port = 8521  # The default
 server.launch()
