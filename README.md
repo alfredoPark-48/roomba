@@ -13,6 +13,15 @@ To run the simulation use:
 - The roombas will not pick the same position twice in order for it to not be repeating the same directions, however if it were to get stuck due to all possible directions being visited the roomba will simply choose a random position to move from all it's possible directions.
 - If one of it's possible directions to move to happens to contain trash, the roomba will prioritize that direction and move towards it, cleaning it once it moves.
 
+## Simulation test
+To begin the testes, the simulation will be set the *roomba number* to **5** and the *maximum steps* in **40**. The trash is randomly generated in the grid. 
+![alt text](./Captura.JPG)
+
+#### Tiempo máximo para limpiar las celdas
+
+#### Porcentaje de celdas limpias
+
+#### Número de movimientos realizados
 #### Collaborators
 - Alfredo Jeong Hyun Park
 - Diego Mellado Oliveros
