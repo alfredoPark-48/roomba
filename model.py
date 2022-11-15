@@ -23,8 +23,11 @@ class RandomModel(Model):
         self.schedule = RandomActivation(self)
         self.running = True
 
-        self.datacollector = DataCollector(
-            agent_reporters={"Steps": lambda a: a.steps_taken if isinstance(a, RandomAgent) else 0})
+        self.datacollector = DataCollector({
+            "Steps": lambda a: a.steps_taken if isinstance(a, RandomAgent) else 0,
+            "Clean": lambda m: self.countType(m, "Trash")}
+
+            )
 
         # Creates random obstacles in the grid
         # for (contents, x, y) in self.grid.coord_iter():
@@ -62,3 +65,14 @@ class RandomModel(Model):
 
         if self.Time >= self.maxTime:
             self.running = False
+
+    @staticmethod
+    def countType(model, trash):
+        count = 0
+        for agent in model.schedule.agents:
+            if isinstance(agent, TrashAgent) and agent.condition == trash.condition:
+                count += 1
+        return count 
+        
+        # @staticmethod
+
