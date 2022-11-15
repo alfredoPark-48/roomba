@@ -55,8 +55,6 @@ class RandomAgent(Agent):
             nextMove = next_move not in self.visited
             allVisited = all(cell in self.visited for cell in next_moves)
 
-            # Now move:
-
             # escapes if roomba is traped
             if allVisited:
                 next_move = self.random.choice(next_moves)
@@ -72,14 +70,6 @@ class RandomAgent(Agent):
                 self.model.grid.move_agent(self, next_move)
                 self.steps_taken += 1
                 self.visited.append(next_move)
-
-        # If the cell is empty, moves the agent to that cell; otherwise, it stays at the same position
-        # if freeSpaces[self.direction]:
-        #     self.model.grid.move_agent(self, possible_steps[self.direction])
-        #     print(
-        #         f"Se mueve de {self.pos} a {possible_steps[self.direction]}; direction {self.direction}")
-        # else:
-        #     print(f"No se puede mover de {self.pos} en esa direccion.")
 
     def step(self):
         """ 
