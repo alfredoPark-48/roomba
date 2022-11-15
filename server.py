@@ -1,8 +1,9 @@
 from model import RandomModel, ObstacleAgent, TrashAgent
-from mesa.visualization.modules import CanvasGrid, BarChartModule
+from mesa.visualization.modules import CanvasGrid, BarChartModule, PieChartModule
 from mesa.visualization.ModularVisualization import ModularServer
 from mesa.visualization.UserParam import UserSettableParameter
 
+COLORS = {"Moves": "#00359F", "Trash": "#FF0421"}
 
 def agent_portrayal(agent):
     if agent is None:
@@ -33,9 +34,14 @@ model_params = {"N": UserSettableParameter("slider", "Roomba number", 1, 1, 5),
                 "height": 10}
 
 grid = CanvasGrid(agent_portrayal, 10, 10, 500, 500)
+
 bar_chart = BarChartModule(
     [{"Label": "Steps", "Color": "#AA0000"}],
     scope="agent", sorting="ascending", sort_by="Steps")
+
+pie_chart = PieChartModule(
+    [{"label": label, "Color": color} for (label, color) in COLORS.items()]
+)
 
 server = ModularServer(
     RandomModel, [grid, bar_chart], "Roomba", model_params)
