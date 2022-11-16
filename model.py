@@ -28,8 +28,8 @@ class RoombaModel(Model):
             agent_reporters={"Steps": lambda a: a.steps_taken if isinstance(
                 a, RandomAgent) else 0},
             model_reporters={
-                "Trash": lambda a: a.schedule.get_type_count(TrashAgent),
-                "Clean": lambda a: a.schedule.get_type_count(RandomAgent)
+                "Trash": lambda a: a.countTrash(a, self.grid),
+                "Clean": lambda a: a.countFloor(a, self.grid)
             })
 
         # Adds random trash in the grid
@@ -59,5 +59,32 @@ class RoombaModel(Model):
         self.datacollector.collect(self)
 
         # If the number of steps have been reached, the simulation stops
-        if self.Time >= self.max_time:
+        if self.Time >= self.max_time or self.countTrash(self, self.grid) == 0:
+            print("Ya estuvo ferras")
             self.running = False
+
+    @staticmethod
+    def countFloor(model, grid):
+        count = 0
+
+        for (contents, x, y) in grid.coord_iter():
+            if len(contents) == 0:
+                count += 1
+                print("Clean", count)
+            for i in contents:
+                if isinstance(i, RandomAgent):
+                    count += 1
+                    print("Clean_", count)
+        return count
+    
+    @staticmethod
+    def countTrash(model, grid):
+        count = 0 
+
+        for (contents, x, y) in grid.coord_iter():
+            for i in contents:
+                if isinstance(i, TrashAgent):
+                    count += 1
+                    print("Trash", count)
+        return count
+
