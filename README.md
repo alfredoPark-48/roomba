@@ -14,8 +14,10 @@ To run the simulation use:
 - All five roombas will move in different directions throughout the grid and cleaning up trash in the way.
 - The roombas will not pick the same position twice in order for it to not be repeating the same directions, however if it were to get stuck due to all possible directions being visited the roomba will simply choose a random position to move from all it's possible directions.
 - If one of it's possible directions to move to happens to contain trash, the roomba will prioritize that direction and move towards it, cleaning it once it moves.
+![Roombas](assets/roombas.gif)
 - User has the option to set a maximum number of steps, once that number of steps are reached the simulation ends.
 - Two charts are displayed below the grid, the first chart shows the total number of steps each individual roomba has taken, and the second pie chart below shows the total clean cells and trash cells. As the roombas clean up the trash, the pie chart updates based on how many trash cells are remaining in the grid.
+![Charts](assets/charts.gif)
 
 #### Collaborators
 - Alfredo Jeong Hyun Park
